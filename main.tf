@@ -43,7 +43,7 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
    admin_username = "rahman"
    admin_password = "YourPassword123!"
    disable_password_authentication = false
-   size = "Standard_B2s"
+   size = "Standard_B2s_v2"
    os_disk {
      caching              = "ReadWrite"
      storage_account_type = "Standard_LRS"
