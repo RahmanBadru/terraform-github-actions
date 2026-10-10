@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AZURE_CORE_OUTPUT: "none"
+
 jobs:
   terraform:
     permissions:
@@ -14,18 +17,28 @@ jobs:
     name: Terraform Pipeline
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Azure CLI Login
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Azure CLI script
-        uses: azure/cli@v2
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
         with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
-            az group list --output table
+          terraform_version: "1.14.8"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
       
