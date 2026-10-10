@@ -9,4 +9,4 @@ This is a test repo to see how to use github actions to run terraform commands. 
 - [x] Create a terraform validate workflow on push
 - [x] Create a terraform plan workflow
 - [x] Create a terraform apply workflow on manual trigger
-- [] Create a terraform destroy workflow on manual trigger
+- [x] Create a terraform destroy workflow on manual trigger
