@@ -42,32 +42,9 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
 
-  destroy:
-    permissions:
-      id-token: write
-
-    name: Terraform Destroy
-    runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Azure CLI Login
-        uses: azure/login@v3
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v4
-        with:
-          terraform_version: "1.14.8"
-
-      - name: Terraform Init
-        run: terraform init
-
       - name: Terraform Destroy
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         run: terraform destroy -auto-approve
+
+
       
