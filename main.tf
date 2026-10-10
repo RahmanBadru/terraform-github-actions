@@ -39,7 +39,7 @@ resource "azurerm_linux_virtual_machine" "linux-vm" {
    name = "PlaygroundVM"
    resource_group_name = data.azurerm_resource_group.rg.name
    location = data.azurerm_resource_group.rg.location
-   zone = ["3"]
+   zone = "3"
    network_interface_ids = [azurerm_network_interface.interface.id]
    admin_username = "rahman"
    admin_password = "YourPassword123!"
