@@ -31,8 +31,8 @@ resource "azurerm_network_interface" "interface" {
 data "azurerm_platform_image" "ubuntu" {
   location  = "eastus"
   publisher = "Canonical"
-  offer     = "0001-com-ubuntu-server-jammy"
-  sku       = "22_04-lts"
+  offer     = "ubuntu-24_04-lts"
+  sku       = "server"
 }
 
 resource "azurerm_linux_virtual_machine" "linux-vm" {
